@@ -54,13 +54,19 @@ body {
   margin: 0 auto;
 }
 
-/* Header */
+/* Header Utama (Smart Sticky Auto-Hide) */
 .site-header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Kelas saat header sembunyi ke atas */
+.site-header.header-hidden {
+  transform: translateY(-100%);
 }
 
 .header-container {
@@ -325,19 +331,27 @@ body {
   color: #fff;
 }
 
-/* Area Detail Baca & Top Bar */
+/* Area Detail Baca & Top Bar (Smart Sticky Auto-Hide) */
 .detail-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 0 0.5rem;
-  position: static !important; /* Tidak mengambang / ikut tergulung ke atas */
-  top: auto !important;
-  z-index: auto !important;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 57px; /* Menempel tepat di bawah header */
+  z-index: 95;
+  background: var(--bg-main);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Saat scroll ke bawah, bar tombol ikut meluncur ke atas */
+.detail-top-bar.bar-hidden {
+  transform: translateY(-200%);
+}
+
+/* Sembunyikan tombol mobile drawer di layar desktop */
 .mobile-menu-btn {
-  display: none; /* Default sembunyi di desktop */
+  display: none;
 }
 
 .mobile-close-sidebar {
@@ -349,22 +363,11 @@ body {
   cursor: pointer;
 }
 
-/* Backdrop untuk drawer mobile */
 .sidebar-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 998;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  display: none;
 }
 
-.sidebar-backdrop.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
+/* Layout 2 Kolom untuk Desktop */
 .main-content {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -373,14 +376,15 @@ body {
   align-items: start;
 }
 
+/* Sidebar Panel Normal di Desktop */
 .sidebar-panel {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 1rem;
   position: sticky;
-  top: 75px;
-  max-height: calc(100vh - 100px);
+  top: 110px;
+  max-height: calc(100vh - 130px);
   display: flex;
   flex-direction: column;
 }
@@ -717,22 +721,21 @@ body {
 }
 
 /* ==========================================================
-   PENYESUAIAN MOBILE & DRAWER OFF-CANVAS
+   PENYESUAIAN KHUSUS MOBILE & DRAWER OFF-CANVAS (≤ 768px)
    ========================================================== */
 @media (max-width: 768px) {
   .container {
     width: 94%;
   }
 
-  /* Bar tombol kembali & daftar hikmah di HP (posisi statis normal) */
   .detail-top-bar {
-    padding: 0.85rem 0 0.5rem;
-    position: static !important;
+    padding: 0.65rem 0;
+    top: 55px;
   }
 
-  /* Tombol menu garis tiga muncul di HP */
+  /* Tombol menu garis tiga HANYA muncul di HP */
   .mobile-menu-btn {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     gap: 6px;
     background: var(--primary);
@@ -740,17 +743,34 @@ body {
     border-color: var(--primary);
   }
 
-  /* Tombol silang di dalam header drawer */
+  /* Tombol silang di drawer HANYA muncul di HP */
   .mobile-close-sidebar {
-    display: block;
+    display: block !important;
   }
 
-  /* Sidebar berubah menjadi Drawer meluncur dari kiri */
+  /* Backdrop gelap untuk drawer di HP */
+  .sidebar-backdrop {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Sidebar berubah menjadi Drawer meluncur dari kiri di HP */
   .sidebar-panel {
     display: flex !important;
     position: fixed !important;
     top: 0 !important;
-    left: -320px; /* Sembunyi di luar layar kiri */
+    left: -320px !important;
     width: 290px;
     height: 100vh;
     max-height: 100vh !important;
@@ -762,15 +782,15 @@ body {
     padding: 1.25rem 1rem;
   }
 
-  /* Saat drawer dibuka */
+  /* Saat drawer dibuka di HP */
   .sidebar-panel.drawer-open {
-    left: 0;
+    left: 0 !important;
   }
 
   /* Konten utama di HP satu kolom penuh */
   .main-content {
     grid-template-columns: 1fr;
-    margin: 0.75rem auto 2rem;
+    margin: 0.5rem auto 2rem;
     gap: 0;
   }
 

@@ -181,10 +181,12 @@ function openMateri(id) {
   closeMobileDrawer();
   displayHikmah(id);
 
+  // Reset scroll dan pastikan header/nav bar muncul
   window.scrollTo(0, 0);
-  if (viewerPanel) {
-    viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  const siteHeader = document.querySelector(".site-header");
+  const detailTopBar = document.querySelector(".detail-top-bar");
+  if (siteHeader) siteHeader.classList.remove("header-hidden");
+  if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
 }
 
 // Kembali ke Beranda
@@ -192,7 +194,12 @@ function showHomePage() {
   closeMobileDrawer();
   if (detailView) detailView.style.display = "none";
   if (homeView) homeView.style.display = "block";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  window.scrollTo(0, 0);
+  const siteHeader = document.querySelector(".site-header");
+  const detailTopBar = document.querySelector(".detail-top-bar");
+  if (siteHeader) siteHeader.classList.remove("header-hidden");
+  if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
 }
 
 // Tampilkan Detail Hikmah
@@ -430,6 +437,42 @@ function setupEventListeners() {
       applyFilters(cat, e.target.value);
     });
   }
+
+  // Smart Auto-Hide: Scroll ke bawah sembunyi, scroll ke atas muncul kembali
+  let lastScrollTop = 0;
+  const siteHeader = document.querySelector(".site-header");
+  const detailTopBar = document.querySelector(".detail-top-bar");
+  const scrollThreshold = 10;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      // Jangan sembunyikan jika masih di dekat bagian paling atas
+      if (currentScroll < 60) {
+        if (siteHeader) siteHeader.classList.remove("header-hidden");
+        if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        return;
+      }
+
+      if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
+        if (currentScroll > lastScrollTop) {
+          // Scroll ke bawah: sembunyikan
+          if (siteHeader) siteHeader.classList.add("header-hidden");
+          if (detailTopBar) detailTopBar.classList.add("bar-hidden");
+        } else {
+          // Scroll ke atas: munculkan kembali
+          if (siteHeader) siteHeader.classList.remove("header-hidden");
+          if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+      }
+    },
+    { passive: true },
+  );
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
