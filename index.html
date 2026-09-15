@@ -104,7 +104,8 @@
 
     <!-- ================= HALAMAN BACA MATERI (Awalnya Tersembunyi) ================= -->
     <div id="detailView" style="display: none">
-      <div class="container" style="padding-top: 1.5rem">
+      <!-- Top Bar Pembaca (Tombol Kembali & Tombol Menu Mobile) -->
+      <div class="container detail-top-bar">
         <button
           id="backToHomeBtn"
           class="action-btn"
@@ -112,14 +113,36 @@
         >
           <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
         </button>
+
+        <!-- Tombol Hamburger Drawer Khusus Mobile -->
+        <button
+          id="mobileSidebarToggle"
+          class="action-btn mobile-menu-btn"
+          title="Buka Daftar Hikmah"
+        >
+          <i class="fa-solid fa-bars"></i> <span>Daftar Hikmah</span>
+        </button>
       </div>
 
+      <!-- Backdrop Gelap saat Drawer Terbuka di Mobile -->
+      <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
       <main class="main-content container">
-        <!-- Sidebar: Daftar Pilihan Hikmah -->
-        <aside class="sidebar-panel">
+        <!-- Sidebar: Daftar Pilihan Hikmah (Desktop & Drawer Mobile) -->
+        <aside class="sidebar-panel" id="sidebarDrawer">
           <div class="sidebar-header">
             <h3><i class="fa-solid fa-book-open"></i> Daftar Hikmah</h3>
-            <span id="hikmahCountBadge" class="count-badge">0 Hikmah</span>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span id="hikmahCountBadge" class="count-badge">0 Hikmah</span>
+              <!-- Tombol Tutup Khusus Layar HP -->
+              <button
+                class="mobile-close-sidebar"
+                id="closeSidebarBtn"
+                title="Tutup Menu"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
           </div>
 
           <div class="search-box">
@@ -143,7 +166,7 @@
         </aside>
 
         <!-- Konten Utama: Penampil Detail Hikmah Terpilih -->
-        <section class="viewer-panel">
+        <section class="viewer-panel" id="viewerPanel">
           <div class="viewer-header">
             <div class="hikmah-meta-tag" id="detailCategory">Kategori</div>
             <div class="viewer-actions">
@@ -178,7 +201,7 @@
             </div>
           </div>
 
-          <!-- Navigasi Bawah -->
+          <!-- Navigasi Bawah (Sebelumnya & Selanjutnya) -->
           <div class="viewer-footer">
             <button id="prevHikmahBtn" class="nav-btn">
               <i class="fa-solid fa-arrow-left"></i> Hikmah Sebelumnya
