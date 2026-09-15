@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitab Al-Hikam - Syekh Ibnu Atha'illah as-Sakandari</title>
+
+    <!-- Google Fonts: Amiri (Arab) & Plus Jakarta Sans (Latin) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome untuk Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- File Styling CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header & Navigasi -->
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="brand" id="brandHomeLink" style="cursor: pointer">
+          <span class="arabic-brand">الحكم</span>
+          <div>
+            <h1>Al-Hikam</h1>
+            <p>Kearifan Spiritual Sufistik</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button
+            id="themeToggleBtn"
+            class="icon-btn"
+            title="Ubah Tema (Gelap/Terang)"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= HALAMAN UTAMA (BERANDA) ================= -->
+    <div id="homeView">
+      <!-- Hero / Beranda Info Kitab -->
+      <section class="hero-section">
+        <div class="container hero-content">
+          <div class="hero-badge">كِتَابُ الحِكَمِ العَطَائِيَّة</div>
+          <h2>Menyelami Kedalaman Kitab Al-Hikam</h2>
+          <p class="author-name">
+            Karya Al-Imam Tajuddin Abu al-Fadhl Ahmad bin Muhammad bin
+            Atha'illah as-Sakandari (w. 709 H)
+          </p>
+          <div class="hero-description">
+            <p>
+              <strong>Kitab Al-Hikam</strong> merupakan mahakarya agung tasawuf
+              yang memadukan kedalaman syariat, hakikat, dan ma'rifat. Kitab ini
+              berisi untaian kata mutiara hikmah yang membimbing sanubari
+              seorang salik (penempuh jalan ruhani) dalam menata hati,
+              meluruskan tauhid, serta mengikis ketergantungan pada amal semata
+              seraya bersandar penuh pada rahmat Allah SWT.
+            </p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <span class="stat-number">260+</span>
+              <span class="stat-label">Total Untaian Hikmah</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">Thariqah</span>
+              <span class="stat-label">Asy-Syadziliyah</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">Fokus</span>
+              <span class="stat-label">Tauhid, Ridha &amp; Tawakal</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tombol Pilihan Materi Hikmah -->
+      <section class="home-hikmah-section container">
+        <div class="section-title-wrap">
+          <span class="count-badge">PILIHAN MATERI</span>
+          <h2>Pilih Materi Hikmah</h2>
+          <p>
+            Klik salah satu tombol di bawah untuk membuka syarah dan kajian
+            lengkapnya.
+          </p>
+        </div>
+
+        <!-- Tombol / Kartu Hikmah (Dibuat otomatis oleh JS) -->
+        <div class="hikmah-grid" id="homeHikmahGrid"></div>
+
+        <!-- Navigasi Pagination Halaman (1, 2, ...) -->
+        <div class="pagination-container" id="paginationContainer"></div>
+      </section>
+    </div>
+
+    <!-- ================= HALAMAN BACA MATERI (Awalnya Tersembunyi) ================= -->
+    <div id="detailView" style="display: none">
+      <div class="container" style="padding-top: 1.5rem">
+        <button
+          id="backToHomeBtn"
+          class="action-btn"
+          style="padding: 8px 16px; font-weight: 600"
+        >
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+        </button>
+      </div>
+
+      <main class="main-content container">
+        <!-- Sidebar: Daftar Pilihan Hikmah -->
+        <aside class="sidebar-panel">
+          <div class="sidebar-header">
+            <h3><i class="fa-solid fa-book-open"></i> Daftar Hikmah</h3>
+            <span id="hikmahCountBadge" class="count-badge">0 Hikmah</span>
+          </div>
+
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Cari hikmah, nomor, atau kata kunci..."
+            />
+          </div>
+
+          <div class="filter-chips" id="filterChipsContainer">
+            <button class="chip active" data-category="all">Semua</button>
+            <button class="chip" data-category="Tawakal">Tawakal</button>
+            <button class="chip" data-category="Iradah">Iradah</button>
+            <button class="chip" data-category="Doa">Doa</button>
+            <button class="chip" data-category="Amal">Amal</button>
+          </div>
+
+          <div class="hikmah-list" id="hikmahListContainer"></div>
+        </aside>
+
+        <!-- Konten Utama: Penampil Detail Hikmah Terpilih -->
+        <section class="viewer-panel">
+          <div class="viewer-header">
+            <div class="hikmah-meta-tag" id="detailCategory">Kategori</div>
+            <div class="viewer-actions">
+              <button id="copyBtn" class="action-btn" title="Salin Teks Hikmah">
+                <i class="fa-regular fa-copy"></i> <span>Salin</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="viewer-body">
+            <div class="hikmah-number-badge" id="detailNumber">HIKMAH #1</div>
+            <h2 class="hikmah-title" id="detailTitle">Judul Hikmah</h2>
+
+            <!-- Teks Arab Matan -->
+            <div class="arabic-container">
+              <p class="arabic-text" id="detailArabic"></p>
+            </div>
+
+            <!-- Terjemahan Bahasa Indonesia -->
+            <div class="translation-container">
+              <h4><i class="fa-solid fa-language"></i> Terjemahan:</h4>
+              <p class="translation-text" id="detailTranslation"></p>
+            </div>
+
+            <!-- Syarah / Penjelasan Lengkap -->
+            <div class="syarah-container">
+              <h4>
+                <i class="fa-solid fa-feather-pointed"></i> Syarah &amp; Makna
+                Mendalam:
+              </h4>
+              <div class="syarah-text" id="detailSyarah"></div>
+            </div>
+          </div>
+
+          <!-- Navigasi Bawah -->
+          <div class="viewer-footer">
+            <button id="prevHikmahBtn" class="nav-btn">
+              <i class="fa-solid fa-arrow-left"></i> Hikmah Sebelumnya
+            </button>
+            <button id="nextHikmahBtn" class="nav-btn">
+              Hikmah Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal Notifikasi: Materi Belum Dibuat / Sedang Disusun -->
+    <div class="modal-backdrop" id="comingSoonModal">
+      <div class="modal-card">
+        <div class="modal-icon">
+          <i class="fa-solid fa-feather-pointed"></i>
+        </div>
+        <h3 id="modalHikmahTitle">Materi Sedang Disusun</h3>
+        <p id="modalHikmahDesc">
+          Kajian syarah untuk untaian hikmah ini sedang dalam proses penulisan
+          dan verifikasi rujukan naskah.
+        </p>
+        <button class="modal-close-btn" id="modalCloseBtn">Mengerti</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>
+          Kajian &amp; Pembacaan Digital Kitab Al-Hikam Ibnu Atha'illah
+          as-Sakandari
+        </p>
+        <small>
+          Dibuat untuk memudahkan tadabbur mutiara hikmah tasawuf secara
+          terstruktur.
+        </small>
+      </div>
+    </footer>
+
+    <!-- Script Data (Urutan: Konten Materi -> Data Indeks -> Logika Aplikasi) -->
+    <script src="js/data/hikmah-01.js"></script>
+    <script src="js/data/hikmah-02.js"></script>
+    <script src="js/data/hikmah-03.js"></script>
+    <script src="js/data/hikmah-04.js"></script>
+    <script src="js/data/hikmah-05.js"></script>
+    <script src="js/data/index-data.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
