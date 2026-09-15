@@ -54,6 +54,9 @@ function initApp() {
   renderFilterChips();
   setupEventListeners();
   checkSavedTheme();
+
+  // Periksa rute URL saat pertama kali dimuat atau setelah refresh
+  handleRouting();
 }
 
 // Drawer Mobile (Buka/Tutup Sidebar di HP)
@@ -65,6 +68,21 @@ function openMobileDrawer() {
 function closeMobileDrawer() {
   if (sidebarDrawer) sidebarDrawer.classList.remove("drawer-open");
   if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
+}
+
+// Routing Berdasarkan Hash URL (#hikmah-X)
+function handleRouting() {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith("#hikmah-")) {
+    const id = hash.replace("#hikmah-", "");
+    const source = window.daftarHikmah || [];
+    const item = source.find((h) => String(h.id) === String(id));
+    if (item && item.isReady) {
+      openMateri(item.id, false);
+      return;
+    }
+  }
+  showHomePage(false);
 }
 
 // Render Kartu di Beranda
@@ -101,7 +119,7 @@ function renderHomeCards() {
 
     card.addEventListener("click", () => {
       if (item.isReady) {
-        openMateri(item.id);
+        openMateri(item.id, true);
       } else {
         showComingSoonModal(item);
       }
@@ -174,32 +192,41 @@ function hideComingSoonModal() {
 }
 
 // Buka Halaman Baca Materi
-function openMateri(id) {
+function openMateri(id, updateHistory = true) {
   if (homeView) homeView.style.display = "none";
   if (detailView) detailView.style.display = "block";
 
   closeMobileDrawer();
   displayHikmah(id);
 
-  // Reset scroll dan pastikan header/nav bar muncul
+  if (updateHistory) {
+    history.pushState({ view: "detail", id: id }, "", `#hikmah-${id}`);
+  }
+
   window.scrollTo(0, 0);
+
   const siteHeader = document.querySelector(".site-header");
-  const detailTopBar = document.querySelector(".detail-top-bar");
+  const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
   if (siteHeader) siteHeader.classList.remove("header-hidden");
-  if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+  if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
 }
 
 // Kembali ke Beranda
-function showHomePage() {
+function showHomePage(updateHistory = true) {
   closeMobileDrawer();
   if (detailView) detailView.style.display = "none";
   if (homeView) homeView.style.display = "block";
 
+  if (updateHistory) {
+    history.pushState({ view: "home" }, "", window.location.pathname + window.location.search);
+  }
+
   window.scrollTo(0, 0);
+
   const siteHeader = document.querySelector(".site-header");
-  const detailTopBar = document.querySelector(".detail-top-bar");
+  const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
   if (siteHeader) siteHeader.classList.remove("header-hidden");
-  if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+  if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
 }
 
 // Tampilkan Detail Hikmah
@@ -271,8 +298,7 @@ function renderSidebarList(list) {
 
     card.addEventListener("click", () => {
       if (item.isReady) {
-        displayHikmah(item.id);
-        closeMobileDrawer();
+        openMateri(item.id, true);
         if (viewerPanel) {
           viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -375,8 +401,8 @@ function updateThemeIcon(theme) {
 
 // Event Listeners
 function setupEventListeners() {
-  if (brandHomeLink) brandHomeLink.addEventListener("click", showHomePage);
-  if (backToHomeBtn) backToHomeBtn.addEventListener("click", showHomePage);
+  if (brandHomeLink) brandHomeLink.addEventListener("click", () => showHomePage(true));
+  if (backToHomeBtn) backToHomeBtn.addEventListener("click", () => showHomePage(true));
 
   // Drawer Sidebar Handlers
   if (mobileSidebarToggle)
@@ -386,6 +412,7 @@ function setupEventListeners() {
   if (sidebarBackdrop)
     sidebarBackdrop.addEventListener("click", closeMobileDrawer);
 
+  // Modal Handlers
   if (modalCloseBtn)
     modalCloseBtn.addEventListener("click", hideComingSoonModal);
   if (comingSoonModal) {
@@ -394,6 +421,7 @@ function setupEventListeners() {
     });
   }
 
+  // Prev / Next Navigation
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
       const source = window.daftarHikmah || [];
@@ -402,7 +430,7 @@ function setupEventListeners() {
         .reverse()
         .find((h) => h.isReady);
       if (prevAvailable) {
-        displayHikmah(prevAvailable.id);
+        openMateri(prevAvailable.id, true);
         if (viewerPanel) {
           viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -417,7 +445,7 @@ function setupEventListeners() {
         .slice(currentHikmahIndex + 1)
         .find((h) => h.isReady);
       if (nextAvailable) {
-        displayHikmah(nextAvailable.id);
+        openMateri(nextAvailable.id, true);
         if (viewerPanel) {
           viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -438,35 +466,40 @@ function setupEventListeners() {
     });
   }
 
+  // Menangani Tombol Back Fisik/Gesture Bawaan HP & Browser History
+  window.addEventListener("popstate", () => {
+    handleRouting();
+  });
+
   // Smart Auto-Hide: Scroll ke bawah sembunyi, scroll ke atas muncul kembali
   let lastScrollTop = 0;
-  const siteHeader = document.querySelector(".site-header");
-  const detailTopBar = document.querySelector(".detail-top-bar");
   const scrollThreshold = 10;
 
   window.addEventListener(
     "scroll",
     () => {
+      const siteHeader = document.querySelector(".site-header");
+      const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
       const currentScroll =
-        window.pageYOffset || document.documentElement.scrollTop;
+        window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      // Jangan sembunyikan jika masih di dekat bagian paling atas
+      // Tetap tampilkan jika masih berada di dekat bagian paling atas
       if (currentScroll < 60) {
         if (siteHeader) siteHeader.classList.remove("header-hidden");
-        if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+        if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         return;
       }
 
       if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
         if (currentScroll > lastScrollTop) {
-          // Scroll ke bawah: sembunyikan
+          // Scroll ke bawah: sembunyikan bar navigasi
           if (siteHeader) siteHeader.classList.add("header-hidden");
-          if (detailTopBar) detailTopBar.classList.add("bar-hidden");
+          if (readerNavbar) readerNavbar.classList.add("bar-hidden");
         } else {
-          // Scroll ke atas: munculkan kembali
+          // Scroll ke atas: munculkan kembali bar navigasi
           if (siteHeader) siteHeader.classList.remove("header-hidden");
-          if (detailTopBar) detailTopBar.classList.remove("bar-hidden");
+          if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
         }
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
       }
