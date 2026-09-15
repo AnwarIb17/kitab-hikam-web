@@ -12,6 +12,12 @@ const paginationContainer = document.getElementById("paginationContainer");
 const brandHomeLink = document.getElementById("brandHomeLink");
 const backToHomeBtn = document.getElementById("backToHomeBtn");
 
+// Elemen Sidebar & Drawer Mobile
+const sidebarDrawer = document.getElementById("sidebarDrawer");
+const mobileSidebarToggle = document.getElementById("mobileSidebarToggle");
+const closeSidebarBtn = document.getElementById("closeSidebarBtn");
+const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+
 // Elemen Modal "Sedang Disusun"
 const comingSoonModal = document.getElementById("comingSoonModal");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
@@ -48,6 +54,17 @@ function initApp() {
   renderFilterChips();
   setupEventListeners();
   checkSavedTheme();
+}
+
+// Drawer Mobile (Buka/Tutup Sidebar di HP)
+function openMobileDrawer() {
+  if (sidebarDrawer) sidebarDrawer.classList.add("drawer-open");
+  if (sidebarBackdrop) sidebarBackdrop.classList.add("active");
+}
+
+function closeMobileDrawer() {
+  if (sidebarDrawer) sidebarDrawer.classList.remove("drawer-open");
+  if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
 }
 
 // Render Kartu di Beranda
@@ -156,14 +173,14 @@ function hideComingSoonModal() {
   if (comingSoonModal) comingSoonModal.classList.remove("show");
 }
 
-// Buka Halaman Baca Materi (Langsung geser ke bagian atas panel baca)
+// Buka Halaman Baca Materi
 function openMateri(id) {
   if (homeView) homeView.style.display = "none";
   if (detailView) detailView.style.display = "block";
 
+  closeMobileDrawer();
   displayHikmah(id);
 
-  // Gulir langsung ke atas halaman dan fokus ke panel materi
   window.scrollTo(0, 0);
   if (viewerPanel) {
     viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -172,6 +189,7 @@ function openMateri(id) {
 
 // Kembali ke Beranda
 function showHomePage() {
+  closeMobileDrawer();
   if (detailView) detailView.style.display = "none";
   if (homeView) homeView.style.display = "block";
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -192,7 +210,7 @@ function displayHikmah(id) {
   if (detailArabic) detailArabic.textContent = hikmah.arab;
   if (detailTranslation) detailTranslation.textContent = hikmah.terjemah;
 
-  // Render Syarah Panjang
+  // Render Syarah
   if (detailSyarah) {
     if (typeof hikmah.renderContent === "function") {
       detailSyarah.innerHTML = hikmah.renderContent();
@@ -221,7 +239,7 @@ function displayHikmah(id) {
   });
 }
 
-// Render Sidebar
+// Render Sidebar List
 function renderSidebarList(list) {
   if (!hikmahListContainer) return;
   hikmahListContainer.innerHTML = "";
@@ -247,6 +265,7 @@ function renderSidebarList(list) {
     card.addEventListener("click", () => {
       if (item.isReady) {
         displayHikmah(item.id);
+        closeMobileDrawer();
         if (viewerPanel) {
           viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -351,6 +370,14 @@ function updateThemeIcon(theme) {
 function setupEventListeners() {
   if (brandHomeLink) brandHomeLink.addEventListener("click", showHomePage);
   if (backToHomeBtn) backToHomeBtn.addEventListener("click", showHomePage);
+
+  // Drawer Sidebar Handlers
+  if (mobileSidebarToggle)
+    mobileSidebarToggle.addEventListener("click", openMobileDrawer);
+  if (closeSidebarBtn)
+    closeSidebarBtn.addEventListener("click", closeMobileDrawer);
+  if (sidebarBackdrop)
+    sidebarBackdrop.addEventListener("click", closeMobileDrawer);
 
   if (modalCloseBtn)
     modalCloseBtn.addEventListener("click", hideComingSoonModal);
