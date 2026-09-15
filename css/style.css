@@ -31,6 +31,12 @@
   padding: 0;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: var(--bg-main);
@@ -39,11 +45,12 @@ body {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+  word-break: break-word;
 }
 
 .container {
   width: 92%;
-  max-width: 1240px;
+  max-width: 1140px;
   margin: 0 auto;
 }
 
@@ -60,24 +67,24 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .arabic-brand {
   font-family: "Amiri", serif;
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--accent);
   line-height: 1;
 }
 
 .brand h1 {
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--primary);
   line-height: 1.1;
@@ -88,7 +95,7 @@ body {
 }
 
 .brand p {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
@@ -96,26 +103,20 @@ body {
   background: var(--bg-main);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s ease;
-}
-
-.icon-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
 }
 
 /* Hero Section */
 .hero-section {
   background: linear-gradient(135deg, var(--primary-dark), var(--primary));
   color: #fff;
-  padding: 3rem 0;
+  padding: 2.5rem 0;
   text-align: center;
   border-bottom: 4px solid var(--accent);
 }
@@ -123,76 +124,75 @@ body {
 .hero-badge {
   display: inline-block;
   font-family: "Amiri", serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background: rgba(197, 155, 39, 0.2);
   color: var(--accent-light);
   border: 1px solid var(--accent);
-  padding: 4px 16px;
+  padding: 3px 14px;
   border-radius: 50px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero-content h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
   font-weight: 700;
 }
 
 .author-name {
   color: #cbd5e1;
-  font-size: 0.95rem;
-  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
 }
 
 .hero-description {
-  max-width: 800px;
-  margin: 0 auto 2rem;
+  max-width: 750px;
+  margin: 0 auto 1.5rem;
   color: #e2e8f0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  min-width: 140px;
+  min-width: 120px;
 }
 
 .stat-number {
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--accent-light);
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #d1d5db;
 }
 
-/* Section Pilihan Hikmah di Beranda */
+/* Home Section & Grid */
 .home-hikmah-section {
-  padding: 3rem 0 2rem;
+  padding: 2.5rem 0 1.5rem;
 }
 
 .section-title-wrap {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-title-wrap h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--primary);
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
 }
 
 [data-theme="dark"] .section-title-wrap h2 {
@@ -201,33 +201,33 @@ body {
 
 .section-title-wrap p {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
-/* Grid Kartu Hikmah */
 .hikmah-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
 }
 
 .home-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1.5rem;
+  padding: 1.25rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.25s ease;
   border-top: 4px solid var(--primary);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .home-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
   border-top-color: var(--accent);
 }
 
@@ -235,21 +235,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .card-badge {
   font-size: 0.75rem;
   font-weight: 800;
   color: var(--accent);
-  letter-spacing: 0.5px;
 }
 
 .home-card h3 {
-  font-size: 1.15rem;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
 }
 
 .home-card-arabic {
@@ -258,11 +255,10 @@ body {
   direction: rtl;
   text-align: right;
   color: var(--primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   line-height: 1.8;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -274,47 +270,17 @@ body {
 .home-card-desc {
   font-size: 0.85rem;
   color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.home-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--border-color);
-  padding-top: 0.75rem;
-}
-
-.card-category {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.card-read-btn {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-[data-theme="dark"] .card-read-btn {
-  color: var(--accent-light);
-}
-
-/* Status Badge pada Kartu */
 .status-badge {
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 2px 8px;
   border-radius: 20px;
 }
 
@@ -324,7 +290,6 @@ body {
 }
 
 [data-theme="dark"] .status-badge.ready {
-  background: rgba(82, 197, 168, 0.2);
   color: #52c5a8;
 }
 
@@ -333,45 +298,25 @@ body {
   color: var(--text-muted);
 }
 
-.home-card.is-draft {
-  opacity: 0.85;
-  border-top-color: var(--border-color);
-}
-
-.home-card.is-draft:hover {
-  border-top-color: var(--accent);
-  opacity: 1;
-}
-
 /* Pagination Bar */
 .pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 2.5rem 0 1.5rem;
+  gap: 6px;
+  margin: 2rem 0 1rem;
 }
 
 .page-btn {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  min-width: 40px;
-  height: 40px;
-  padding: 0 12px;
+  min-width: 36px;
+  height: 36px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 600;
   font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.page-btn:hover:not(:disabled) {
-  border-color: var(--primary);
-  color: var(--primary);
 }
 
 .page-btn.active {
@@ -380,112 +325,23 @@ body {
   color: #fff;
 }
 
-.page-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-/* Modal Notifikasi */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(4px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-
-.modal-backdrop.show {
-  display: flex;
-}
-
-.modal-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  max-width: 420px;
-  width: 100%;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  animation: modalPop 0.25s ease-out;
-}
-
-@keyframes modalPop {
-  from {
-    transform: scale(0.92);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.modal-icon {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: rgba(197, 155, 39, 0.15);
-  color: var(--accent);
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.25rem;
-}
-
-.modal-card h3 {
-  font-size: 1.25rem;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
-}
-
-.modal-card p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.modal-close-btn {
-  background: var(--primary);
-  border: none;
-  color: #fff;
-  padding: 10px 24px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.modal-close-btn:hover {
-  background: var(--primary-light);
-}
-
-/* Layout Utama */
+/* Area Detail Baca */
 .main-content {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 2rem;
-  margin: 2.5rem auto;
+  grid-template-columns: 280px 1fr;
+  gap: 1.75rem;
+  margin: 1.5rem auto 3rem;
   align-items: start;
 }
 
-/* Sidebar List */
 .sidebar-panel {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  padding: 1rem;
   position: sticky;
-  top: 90px;
-  max-height: calc(100vh - 120px);
+  top: 75px;
+  max-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
 }
@@ -494,14 +350,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-}
-
-.sidebar-header h3 {
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin-bottom: 0.75rem;
 }
 
 .count-badge {
@@ -515,49 +364,43 @@ body {
 
 .search-box {
   position: relative;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .search-icon {
   position: absolute;
-  left: 12px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .search-box input {
   width: 100%;
-  padding: 8px 12px 8px 34px;
+  padding: 7px 10px 7px 30px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   background: var(--bg-main);
   color: var(--text-main);
-  outline: none;
-  font-size: 0.85rem;
-}
-
-.search-box input:focus {
-  border-color: var(--primary);
+  font-size: 0.8rem;
 }
 
 .filter-chips {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   overflow-x: auto;
-  padding-bottom: 8px;
-  margin-bottom: 0.75rem;
+  padding-bottom: 6px;
+  margin-bottom: 0.5rem;
 }
 
 .chip {
   background: var(--bg-main);
   border: 1px solid var(--border-color);
   color: var(--text-muted);
-  padding: 4px 10px;
-  font-size: 0.75rem;
+  padding: 3px 8px;
+  font-size: 0.7rem;
   border-radius: 20px;
-  cursor: pointer;
   white-space: nowrap;
 }
 
@@ -569,25 +412,17 @@ body {
 
 .hikmah-list {
   overflow-y: auto;
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-right: 4px;
+  gap: 6px;
 }
 
 .hikmah-item {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   cursor: pointer;
-  transition: 0.2s ease;
   background: var(--bg-card);
-}
-
-.hikmah-item:hover {
-  border-color: var(--accent);
-  transform: translateX(3px);
 }
 
 .hikmah-item.active {
@@ -599,25 +434,21 @@ body {
   font-size: 0.7rem;
   font-weight: 700;
   color: var(--accent);
-  text-transform: uppercase;
 }
 
 .item-title {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* Detail Viewer */
+/* Panel Penampil Detail */
 .viewer-panel {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 2.25rem;
+  padding: 1.75rem;
   box-shadow: var(--shadow-md);
+  min-width: 0;
 }
 
 .viewer-header {
@@ -625,216 +456,112 @@ body {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .hikmah-meta-tag {
   background: rgba(13, 74, 62, 0.1);
   color: var(--primary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 50px;
-}
-
-[data-theme="dark"] .hikmah-meta-tag {
-  color: #6ee7b7;
-  background: rgba(110, 231, 183, 0.1);
 }
 
 .action-btn {
   background: var(--bg-main);
   border: 1px solid var(--border-color);
   color: var(--text-main);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: 0.2s ease;
-}
-
-.action-btn:hover {
-  background: var(--border-color);
+  gap: 5px;
 }
 
 .hikmah-number-badge {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 800;
   color: var(--accent);
-  letter-spacing: 1px;
 }
 
 .hikmah-title {
-  font-size: 1.6rem;
-  margin: 0.3rem 0 1.5rem;
-  line-height: 1.3;
+  font-size: 1.4rem;
+  margin: 0.25rem 0 1rem;
 }
 
-/* Teks Arab */
 .arabic-container {
   background: var(--bg-main);
   border-right: 4px solid var(--accent);
   border-radius: var(--radius-md);
-  padding: 2rem 1.5rem;
-  margin-bottom: 2rem;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
   text-align: right;
 }
 
 .arabic-text {
   font-family: "Amiri", serif;
-  font-size: 2rem;
-  line-height: 2.2;
-  color: var(--text-main);
+  font-size: 1.6rem;
+  line-height: 2.1;
   direction: rtl;
 }
 
-/* Terjemahan & Syarah */
 .translation-container {
   background: rgba(197, 155, 39, 0.06);
   border-left: 4px solid var(--accent);
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.25rem;
   border-radius: var(--radius-sm);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.translation-container h4,
+.translation-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
 .syarah-container h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   color: var(--primary);
 }
 
-[data-theme="dark"] .translation-container h4,
 [data-theme="dark"] .syarah-container h4 {
   color: var(--accent-light);
 }
 
-.translation-text {
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.syarah-container {
-  margin-top: 2rem;
-}
-
 .syarah-text {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  line-height: 1.8;
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
-.syarah-text p {
-  margin-bottom: 1rem;
-}
-
-.syarah-text ul,
-.syarah-text ol {
-  margin-left: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.syarah-text li {
-  margin-bottom: 0.4rem;
-}
-
-.syarah-box-highlight {
-  background: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary);
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius-sm);
-  margin: 1.25rem 0;
-}
-
-/* Navigasi Tombol Bawah */
-.viewer-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-color);
-}
-
-.nav-btn {
-  background: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 10px 18px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.2s ease;
-}
-
-.nav-btn:hover:not(:disabled) {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-.nav-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-/* Footer */
-.site-footer {
-  background: var(--bg-card);
-  border-top: 1px solid var(--border-color);
-  padding: 2rem 0;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
-
-/* Responsif Mobile & Tablet */
-@media (max-width: 900px) {
-  .main-content {
-    grid-template-columns: 1fr;
-  }
-  .sidebar-panel {
-    position: static;
-    max-height: 400px;
-  }
-  .arabic-text {
-    font-size: 1.6rem;
-    line-height: 2;
-  }
-}
-
-/* Styling Presisi Sesuai UI Meta-AlHikam */
+/* Modul Custom Syarah Islami */
 .meta-badge-top {
   display: inline-block;
-  background: #f1f5f3;
+  background: rgba(13, 74, 62, 0.08);
   color: var(--primary);
-  border: 1px solid #d1fae5;
-  padding: 4px 14px;
+  border: 1px solid rgba(13, 74, 62, 0.2);
+  padding: 3px 12px;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+[data-theme="dark"] .meta-badge-top {
+  color: #52c5a8;
+  background: rgba(82, 197, 168, 0.1);
+  border-color: rgba(82, 197, 168, 0.25);
 }
 
 .meta-dark-card {
   background: #0f2d25;
   color: #ffffff;
-  border-radius: 14px;
-  padding: 1.75rem;
-  margin: 1.5rem 0;
-  box-shadow: 0 4px 14px rgba(7, 42, 35, 0.15);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1.25rem 0;
 }
 
 .meta-dark-card h3,
@@ -842,49 +569,182 @@ body {
   color: #fef08a !important;
 }
 
+.meta-flow-step {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-card);
+}
+
 .meta-number-list {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin: 1.5rem 0;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .meta-item-row {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   align-items: flex-start;
 }
 
 .meta-num-circle {
-  min-width: 32px;
-  height: 32px;
+  min-width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  margin-top: 2px;
-}
-
-.meta-item-body {
-  flex: 1;
 }
 
 .meta-quote-pill {
-  background: #fdf8eb;
-  border: 1px solid #f3e8c8;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin: 1.25rem 0;
+  background: rgba(197, 155, 39, 0.08);
+  border: 1px solid rgba(197, 155, 39, 0.2);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
 }
 
-.meta-flow-step {
+/* Navigasi Bawah */
+.viewer-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  gap: 8px;
+}
+
+.nav-btn {
+  background: var(--bg-main);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-footer {
   background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-backdrop.show {
+  display: flex;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-close-btn {
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* ==========================================================
+   PERBAIKAN KHUSUS LAYAR HP (MOBILE RESPONSIVE TIGHT FIX)
+   ========================================================== */
+@media (max-width: 768px) {
+  .container {
+    width: 94%;
+  }
+
+  /* Hilangkan tumpukan sidebar di HP saat membaca materi agar langsung fokus ke bacaan */
+  .sidebar-panel {
+    display: none !important;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    margin: 1rem auto 2rem;
+    gap: 0;
+  }
+
+  .viewer-panel {
+    padding: 1.15rem;
+    border-radius: var(--radius-md);
+  }
+
+  .arabic-text {
+    font-size: 1.35rem;
+    line-height: 2;
+  }
+
+  .arabic-container {
+    padding: 1rem;
+  }
+
+  .hikmah-title {
+    font-size: 1.2rem;
+  }
+
+  .translation-text {
+    font-size: 0.88rem;
+  }
+
+  .syarah-text {
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+
+  /* Elemen-elemen syarah agar proporsional di layar sempit */
+  .meta-dark-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .meta-dark-card h3,
+  .meta-dark-card h4 {
+    font-size: 1.15rem !important;
+  }
+
+  .meta-flow-step {
+    padding: 0.75rem;
+  }
+
+  .viewer-footer {
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+  }
 }
