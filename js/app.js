@@ -19,6 +19,7 @@ const modalHikmahTitle = document.getElementById("modalHikmahTitle");
 const modalHikmahDesc = document.getElementById("modalHikmahDesc");
 
 // Elemen Viewer Detail
+const viewerPanel = document.getElementById("viewerPanel");
 const detailNumber = document.getElementById("detailNumber");
 const detailTitle = document.getElementById("detailTitle");
 const detailCategory = document.getElementById("detailCategory");
@@ -155,12 +156,18 @@ function hideComingSoonModal() {
   if (comingSoonModal) comingSoonModal.classList.remove("show");
 }
 
-// Buka Halaman Baca Materi
+// Buka Halaman Baca Materi (Langsung geser ke bagian atas panel baca)
 function openMateri(id) {
   if (homeView) homeView.style.display = "none";
   if (detailView) detailView.style.display = "block";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
   displayHikmah(id);
+
+  // Gulir langsung ke atas halaman dan fokus ke panel materi
+  window.scrollTo(0, 0);
+  if (viewerPanel) {
+    viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 // Kembali ke Beranda
@@ -170,7 +177,7 @@ function showHomePage() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Tampilkan Detail Hikmah (Membaca format syarah dan renderContent)
+// Tampilkan Detail Hikmah
 function displayHikmah(id) {
   const source = window.daftarHikmah || [];
   const index = source.findIndex((h) => String(h.id) === String(id));
@@ -240,6 +247,9 @@ function renderSidebarList(list) {
     card.addEventListener("click", () => {
       if (item.isReady) {
         displayHikmah(item.id);
+        if (viewerPanel) {
+          viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       } else {
         showComingSoonModal(item);
       }
@@ -357,7 +367,12 @@ function setupEventListeners() {
         .slice(0, currentHikmahIndex)
         .reverse()
         .find((h) => h.isReady);
-      if (prevAvailable) displayHikmah(prevAvailable.id);
+      if (prevAvailable) {
+        displayHikmah(prevAvailable.id);
+        if (viewerPanel) {
+          viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
     });
   }
 
@@ -367,7 +382,12 @@ function setupEventListeners() {
       const nextAvailable = source
         .slice(currentHikmahIndex + 1)
         .find((h) => h.isReady);
-      if (nextAvailable) displayHikmah(nextAvailable.id);
+      if (nextAvailable) {
+        displayHikmah(nextAvailable.id);
+        if (viewerPanel) {
+          viewerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
     });
   }
 
