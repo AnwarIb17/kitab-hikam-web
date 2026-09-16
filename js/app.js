@@ -24,6 +24,14 @@ const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalHikmahTitle = document.getElementById("modalHikmahTitle");
 const modalHikmahDesc = document.getElementById("modalHikmahDesc");
 
+// Elemen Modal "Tentang Web & Pembimbing"
+const aboutModalBtn = document.getElementById("aboutModalBtn");
+const aboutModal = document.getElementById("aboutModal");
+const aboutModalCloseBtn = document.getElementById("aboutModalCloseBtn");
+const aboutModalCloseBtnBottom = document.getElementById(
+  "aboutModalCloseBtnBottom",
+);
+
 // Elemen Viewer Detail
 const viewerPanel = document.getElementById("viewerPanel");
 const detailNumber = document.getElementById("detailNumber");
@@ -68,6 +76,15 @@ function openMobileDrawer() {
 function closeMobileDrawer() {
   if (sidebarDrawer) sidebarDrawer.classList.remove("drawer-open");
   if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
+}
+
+// Modal "Tentang Web & Pembimbing"
+function openAboutModal() {
+  if (aboutModal) aboutModal.classList.add("show");
+}
+
+function closeAboutModal() {
+  if (aboutModal) aboutModal.classList.remove("show");
 }
 
 // Routing Berdasarkan Hash URL (#hikmah-X)
@@ -206,7 +223,9 @@ function openMateri(id, updateHistory = true) {
   window.scrollTo(0, 0);
 
   const siteHeader = document.querySelector(".site-header");
-  const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
+  const readerNavbar =
+    document.querySelector(".reader-navbar") ||
+    document.querySelector(".detail-top-bar");
   if (siteHeader) siteHeader.classList.remove("header-hidden");
   if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
 }
@@ -218,13 +237,19 @@ function showHomePage(updateHistory = true) {
   if (homeView) homeView.style.display = "block";
 
   if (updateHistory) {
-    history.pushState({ view: "home" }, "", window.location.pathname + window.location.search);
+    history.pushState(
+      { view: "home" },
+      "",
+      window.location.pathname + window.location.search,
+    );
   }
 
   window.scrollTo(0, 0);
 
   const siteHeader = document.querySelector(".site-header");
-  const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
+  const readerNavbar =
+    document.querySelector(".reader-navbar") ||
+    document.querySelector(".detail-top-bar");
   if (siteHeader) siteHeader.classList.remove("header-hidden");
   if (readerNavbar) readerNavbar.classList.remove("bar-hidden");
 }
@@ -401,8 +426,10 @@ function updateThemeIcon(theme) {
 
 // Event Listeners
 function setupEventListeners() {
-  if (brandHomeLink) brandHomeLink.addEventListener("click", () => showHomePage(true));
-  if (backToHomeBtn) backToHomeBtn.addEventListener("click", () => showHomePage(true));
+  if (brandHomeLink)
+    brandHomeLink.addEventListener("click", () => showHomePage(true));
+  if (backToHomeBtn)
+    backToHomeBtn.addEventListener("click", () => showHomePage(true));
 
   // Drawer Sidebar Handlers
   if (mobileSidebarToggle)
@@ -412,12 +439,24 @@ function setupEventListeners() {
   if (sidebarBackdrop)
     sidebarBackdrop.addEventListener("click", closeMobileDrawer);
 
-  // Modal Handlers
+  // Modal "Sedang Disusun" Handlers
   if (modalCloseBtn)
     modalCloseBtn.addEventListener("click", hideComingSoonModal);
   if (comingSoonModal) {
     comingSoonModal.addEventListener("click", (e) => {
       if (e.target === comingSoonModal) hideComingSoonModal();
+    });
+  }
+
+  // Modal "Tentang Web & Pembimbing" Handlers
+  if (aboutModalBtn) aboutModalBtn.addEventListener("click", openAboutModal);
+  if (aboutModalCloseBtn)
+    aboutModalCloseBtn.addEventListener("click", closeAboutModal);
+  if (aboutModalCloseBtnBottom)
+    aboutModalCloseBtnBottom.addEventListener("click", closeAboutModal);
+  if (aboutModal) {
+    aboutModal.addEventListener("click", (e) => {
+      if (e.target === aboutModal) closeAboutModal();
     });
   }
 
@@ -479,7 +518,9 @@ function setupEventListeners() {
     "scroll",
     () => {
       const siteHeader = document.querySelector(".site-header");
-      const readerNavbar = document.querySelector(".reader-navbar") || document.querySelector(".detail-top-bar");
+      const readerNavbar =
+        document.querySelector(".reader-navbar") ||
+        document.querySelector(".detail-top-bar");
       const currentScroll =
         window.pageYOffset || document.documentElement.scrollTop || 0;
 

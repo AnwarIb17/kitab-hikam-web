@@ -33,7 +33,16 @@
             <p>Kearifan Spiritual Sufistik</p>
           </div>
         </div>
-        <div class="header-actions">
+        <div class="header-actions" style="display: flex; gap: 8px">
+          <!-- Tombol Modal Tentang Web & Pembimbing -->
+          <button
+            id="aboutModalBtn"
+            class="icon-btn"
+            title="Tentang Web & Pembimbing"
+          >
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
+
           <button
             id="themeToggleBtn"
             class="icon-btn"
@@ -78,6 +87,16 @@
             <div class="stat-card">
               <span class="stat-number">Fokus</span>
               <span class="stat-label">Tauhid, Ridha &amp; Tawakal</span>
+            </div>
+            <!-- Kartu Pembimbing (Opsi 2) -->
+            <div class="stat-card" style="border-color: var(--accent)">
+              <span
+                class="stat-number"
+                style="font-size: 0.95rem; color: var(--accent-light)"
+              >
+                Ustadz Ahmad Subarnas
+              </span>
+              <span class="stat-label">Pembimbing &amp; Penelaah</span>
             </div>
           </div>
         </div>
@@ -215,6 +234,133 @@
     </div>
 
     <!-- Modal Notifikasi: Materi Belum Dibuat / Sedang Disusun -->
+    <!-- Modal Tentang Web & Pembimbing (Opsi 3) -->
+    <div class="modal-backdrop" id="aboutModal">
+      <div class="modal-card" style="max-width: 440px; text-align: left">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+          "
+        >
+          <h3
+            style="
+              font-size: 1.1rem;
+              color: var(--primary);
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            "
+          >
+            <i class="fa-solid fa-book-quran"></i> Tentang Proyek &amp; Sanad
+          </h3>
+          <button
+            id="aboutModalCloseBtn"
+            style="
+              background: none;
+              border: none;
+              font-size: 1.2rem;
+              cursor: pointer;
+              color: var(--text-muted);
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <p
+          style="
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+          "
+        >
+          Website ini didedikasikan sebagai media digitalisasi naskah dan telaah
+          kajian <em>Kitab Al-Hikam</em> karya Al-Imam Ibnu Atha'illah
+          as-Sakandari agar mudah dikaji dan ditadabburi secara runtut.
+        </p>
+
+        <!-- Kotak Pembimbing Khusus -->
+        <div
+          style="
+            background: rgba(13, 74, 62, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 0.85rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+          "
+        >
+          <div
+            style="
+              font-size: 0.75rem;
+              font-weight: 700;
+              color: var(--accent);
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            "
+          >
+            <i class="fa-solid fa-graduation-cap"></i> Pembimbing &amp; Penelaah
+            Ilmiah
+          </div>
+          <div
+            style="
+              font-size: 0.95rem;
+              font-weight: 700;
+              color: var(--primary);
+              margin: 3px 0;
+            "
+          >
+            Ustadz Ahmad Subarnas,
+          </div>
+          <p
+            style="
+              font-size: 0.8rem;
+              color: var(--text-muted);
+              margin: 0;
+              line-height: 1.5;
+            "
+          >
+            Pimpinan Pondok Pesantren Tajalliddin Kp.SinarJaya, Kec.Samarang,
+            Kab. Garut, Jawa Barat. Beliau merupakan murid langsung dari
+            <strong>KH.Mama Ruhiyat</strong>
+          </p>
+        </div>
+
+        <div
+          style="
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+          "
+        >
+          <strong>Rujukan Utama Syarah:</strong>
+          <ul style="margin-left: 1.2rem; margin-top: 4px">
+            <li>
+              <em>Ghayts al-Mawahib al-'Aliyyah</em> — Ibn 'Abbad ar-Rundi
+            </li>
+            <li><em>Iqadh al-Himam</em> — Ibn 'Ajibah al-Hasani</li>
+            <li><em>At-Tanwir fi Isqath at-Tadbir</em> — Ibnu Atha'illah</li>
+          </ul>
+        </div>
+
+        <div style="text-align: right">
+          <button
+            class="modal-close-btn"
+            id="aboutModalCloseBtnBottom"
+            style="padding: 6px 16px"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-backdrop" id="comingSoonModal">
       <div class="modal-card">
         <div class="modal-icon">
