@@ -845,3 +845,54 @@ body {
     padding: 10px;
   }
 }
+
+/* Pastikan header sidebar tidak menciut */
+.sidebar-header {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Pastikan kolom pencarian tidak menciut */
+.search-box {
+  flex-shrink: 0;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+/* KUNCI UTAMA: flex-shrink: 0 agar filter chips tidak pernah gepeng/mengecil */
+.filter-chips {
+  flex-shrink: 0 !important;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 0.75rem;
+  scrollbar-width: thin; /* Tampilan scrollbar rapi */
+}
+
+/* Pastikan tombol chip di dalamnya mempertahankan ukuran */
+.chip {
+  flex-shrink: 0;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  border-radius: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Biarkan hanya daftar hikmah yang fleksibel dan menampung scroll */
+.hikmah-list {
+  flex: 1 1 auto;
+  min-height: 0; /* Wajib di flexbox agar scroll internal aktif sempurna */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
